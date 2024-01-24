@@ -125,6 +125,15 @@ class AuthController extends StateNotifier<bool> {
     return right(null);
   }
 
+  Future<Either<String, Null>> deleteAccount() async {
+    try {
+      // await _ref.deleteAccount();
+      await logout();
+    } catch (error) {
+      return left('Failed to delete account: $error');
+    }
+    return right(null);
+  }
   Timer reloadUserPeriodically() {
     var timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
